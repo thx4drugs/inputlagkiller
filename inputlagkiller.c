@@ -285,6 +285,68 @@ static void disablenotification(void) {
     }
 }
 
+static void disabletelemetry(void) {
+    printf("[*] Disabling telemetry in the entire operating system...\n");
+	system("reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Device Metadata\" /v PreventDeviceMetadataFromNetwork /t REG_DWORD /d 1 /f >nul 2>&1");
+	system("reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection\" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>&1");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection\" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>&1");
+	system("reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\MRT\" /v DontOfferThroughWUAU /t REG_DWORD /d 1 /f >nul 2>&1");
+	system("reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\SQMClient\\Windows\" /v CEIPEnable /t REG_DWORD /d 0 /f >nul 2>&1");
+	system("reg add \"HKLM\\Software\\Microsoft\\SQMClient\\Windows\" /v CEIPEnable /d 0 /t REG_DWORD /f >nul 2>&1");
+	system("reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection\" /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>&1");
+	system("reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\WMI\\AutoLogger\\AutoLogger-Diagtrack-Listener\" /v Start /t REG_DWORD /d 0 /f >nul 2>&1");
+	system("reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\WMI\\AutoLogger\\SQMLogger\" /v Start /t REG_DWORD /d 0 /f >nul 2>&1");
+    printf("[*] Telemetry disabled successfully\n\n");
+}
+
+static void disablerdpandassist(void) {
+    printf("[*] Disabling remote access (RDP) and voice assistant...\n");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Remote Assistance\" /v fAllowFullControl /t REG_DWORD /d 0 /f >nul 2>&1");
+	system("reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search\" /v AllowCortana /t REG_DWORD /d 0 /f >nul 2>&1");
+    printf("[*] Remote access and voice assistant disabled successfully\n\n");
+}
+
+static void disableinternetsearch(void) {
+    printf("[*] Disabling Windows search, internet search and cortana search...\n");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search\" /v AllowCortana /t REG_DWORD /d 0 /f >nul 2>&1");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search\" /v AllowSearchToUseLocation /t REG_DWORD /d 0 /f >nul 2>&1");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search\" /v ConnectedSearchUseWeb /t REG_DWORD /d 0 /f >nul 2>&1");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search\" /v DisableWebSearch /t REG_DWORD /d 1 /f >nul 2>&1");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search\" /v PreventIndexingOutlook /t REG_DWORD /d 1 /f >nul 2>&1");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search\" /v PreventIndexingEmailAttachments /t REG_DWORD /d 1 /f >nul 2>&1");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search\" /v AutoIndexSharedFolders /t REG_DWORD /d 1 /f >nul 2>&1");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search\" /v AllowCortana /t REG_DWORD /d 0 /f >nul 2>&1");
+	system("reg add \"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Search\" /v BingSearchEnabled /t REG_DWORD /d 0 /f >nul 2>&1");
+	system("reg add \"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Search\" /v CortanaConsent /t REG_DWORD /d 0 /f >nul 2>&1");
+    printf("[*] Internet & Cortana search disabled successfully\n\n");
+}
+
+static void disablebackgroundapps(void) {
+    printf("[*] Disabling background activity of applications...\n");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppPrivacy\" /v LetAppsRunInBackground /t REG_DWORD /d 2 /f >nul 2>&1");
+	system("reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\" /v GlobalUserDisabled /t REG_DWORD /d 1 /f >nul 2>&1");
+	system("reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search\" /v BackgroundAppGlobalToggle /t REG_DWORD /d 0 /f >nul 2>&1");
+    printf("[*] Background activity of applications disabled successfully\n\n");
+}
+
+static void disablemsedge(void) {
+    printf("[*] Disabling Microsoft Edge and Internet Explorer services...\n");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main\" /v SyncFavoritesBetweenIEAndMicrosoftEdge /t REG_DWORD /d 1 /f >nul 2>&1");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main\" /v PreventLiveTileDataCollection /t REG_DWORD /d 1 /f >nul 2>&1");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main\" /v AllowPrelaunch /t REG_DWORD /d 0 /f >nul 2>&1");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\TabPreloader\" /v PreventTabPreloading /t REG_DWORD /d 1 /f >nul 2>&1");
+	system("reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\TabPreloader\" /v AllowTabPreloading /t REG_DWORD /d 0 /f >nul 2>&1");
+    printf("[*] Microsoft Edge and Internet Explorer services disabled successfully\n\n");
+}
+
+static void resetnetworksettings(void) {
+    printf("[*] Reset network settings...\n");
+	system("ipconfig /flushdns >nul 2>&1");
+	system("netsh int ip reset reset.log >nul 2>&1");
+	system("netsh advfirewall reset >nul 2>&1");
+    printf("[*] Network settings reset successfully\n\n");
+}
+
 int main(void) {
 	SetConsoleTitleA("InputLag Killer");
 	printf("InputLag Killer - one-click PC optimization solution\n");
@@ -322,6 +384,17 @@ int main(void) {
     disablequickaccess();
     enablefulltray();
     disablenotification();
+	
+	disabletelemetry();
+	disablerdpandassist();
+	disableinternetsearch();
+	disablebackgroundapps();
+	disablemsedge();
+	
+	resetnetworksettings();
+	
+	system("taskkill /f /im explorer.exe >nul 2>&1");
+	system("start explorer.exe >nul 2>&1");
 	
 	printf("PC optimization is complete. You need to restart your PC to apply the tweaks!\n");
 	printf("If our utility helped you, please like our Github repository\n\n");
