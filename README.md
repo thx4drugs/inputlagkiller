@@ -9,7 +9,41 @@ Right-click the executable file and select "Run as administrator".
 4) Wait a few moments while changes are applied. There is no additional user input required.
 5) Restart your computer if prompted, to ensure all changes take effect.
 6) Enjoy improved system responsiveness and reduced input lag while gaming.
-> Note: Running the program without administrator privileges will prevent it from applying system-level tweaks and optimizations.
+> [!NOTE]
+> Useful information that users should know, even when skimming content.
+
+# Tweaks applied by the application
+* Disables the High Precision Event Timer (HPET), which is a hardware timer used by Windows for precise timing. Disabling HPET may reduce latency and improve game or system performance in some cases, though it can also introduce instability in others.
+```
+bcdedit /deletevalue useplatformclock
+bcdedit /set useplatformclock false
+bcdedit /set disabledynamictick yes
+```
+* Likely disables certain performance or system counters (e.g., CPU counters) that track events or metrics. This might be used to reduce overhead or prevent certain monitoring features.
+* Disables the Superfetch service in Windows, which preloads frequently used applications into memory to speed up startup. Disabling it may reduce disk usage on slower drives or improve performance in some scenarios.
+```
+sc stop SysMain
+sc config SysMain start= disabled
+```
+* Probably disables hardware or software acceleration features in Windows, such as GPU acceleration or hardware acceleration for rendering, to troubleshoot or stabilize system performance.
+* Clears the temporary files folder on the system, freeing up disk space and potentially improving system responsiveness.
+* Disables Cortana, the Windows digital assistant, to reduce background resource usage or for privacy reasons.
+* Disables system diagnostic services or telemetry data collection to reduce background activity or enhance privacy.
+```
+schtasks /change /tn \"Microsoft\\Windows\\MemoryDiagnostic\\ProcessMemoryDiagnosticEvents\"
+schtasks /change /tn \"Microsoft\\Windows\\MemoryDiagnostic\\RunFullMemoryDiagnostic\"
+```
+* Uninstalls Microsoft OneDrive from the system, removing the cloud storage integration.
+```
+taskkill /f /im OneDrive.exe
+%systemroot%\\SysWOW64\\OneDriveSetup.exe /uninstall
+rd /s /q %userprofile%\\OneDrive
+rd /s /q %userprofile%\\AppData\\Local\\Microsoft\\OneDrive
+rd /s /q \"%allusersprofile%\\Microsoft OneDrive\"
+```
+* Disables Quick Access in File Explorer, which shows frequently used folders and recent files, likely to improve privacy or simplify the interface.
+* Enables the full system tray (notification area) display, possibly showing all icons instead of hiding some.
+* Disables system notifications, preventing popup alerts and notifications from apps or the OS.
 
 # Benefits
 * Reduced Input Lag: Minimizes delays between your hardware input and on-screen reactions, providing a more responsive gaming experience.
