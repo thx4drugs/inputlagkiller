@@ -384,23 +384,23 @@ int main(void) {
     disablequickaccess();
     enablefulltray();
     disablenotification();
-	
-	disabletelemetry();
-	disablerdpandassist();
-	disableinternetsearch();
-	disablebackgroundapps();
-	disablemsedge();
-	
-	resetnetworksettings();
-	
-	system("taskkill /f /im explorer.exe >nul 2>&1");
-	system("start explorer.exe >nul 2>&1");
-	
-	printf("PC optimization is complete. You need to restart your PC to apply the tweaks!\n");
-	printf("If our utility helped you, please like our Github repository\n\n");
-	printf("Press any key to exit...\n");
-	
-	MessageBoxA(NULL, "Attention! Restart your PC immediately to apply the tweaks!", "InputLag Killer", MB_OK | MB_ICONINFORMATION);
+    
+    disabletelemetry();
+    disablerdpandassist();
+    disableinternetsearch();
+    disablebackgroundapps();
+    disablemsedge();
+    
+    resetnetworksettings();
+    
+    system("taskkill /f /im explorer.exe >nul 2>&1");
+    system("start explorer.exe >nul 2>&1");
+    
+    printf("PC optimization is complete. You need to restart your PC to apply the tweaks!\n");
+    printf("If our utility helped you, please like our Github repository\n\n");
+    printf("Press any key to exit...\n");
+    
+    MessageBoxA(NULL, "Attention! Restart your PC immediately to apply the tweaks!", "InputLag Killer", MB_OK | MB_ICONINFORMATION);
     _getch();
 
     return 0;
