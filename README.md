@@ -10,7 +10,7 @@ Right-click the executable file and select "Run as administrator".
 5) Restart your computer if prompted, to ensure all changes take effect.
 6) Enjoy improved system responsiveness and reduced input lag while gaming.
 > [!NOTE]
-> Useful information that users should know, even when skimming content.
+> Note: Running the program without administrator privileges will prevent it from applying system-level tweaks and optimizations.
 
 # Tweaks applied by the application
 * Disables the High Precision Event Timer (HPET), which is a hardware timer used by Windows for precise timing. Disabling HPET may reduce latency and improve game or system performance in some cases, though it can also introduce instability in others.
